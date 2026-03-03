@@ -1,0 +1,9 @@
+Desarrollodel quiz numero 1 de aplicaciones en sustemas embebidos 
+
+Donde se nos pide realizar lo 
+
+Utilizar el código de ejemplo que expone mediaPipe denominado "Pose Landmark Detection" y desarrollar lo siguiente:
+Analizar y explicar el funcionamiento del código y las funciones más relevantes.
+Desarrollar una etiqueta sencilla dentro de la imagen que indique si la persona está parada o sentada.
+Conectar el código con arduino, para que la persona cuando se pare prenda un led rojo y cuando se siente prenda un led verde.
+Desarrollar la explicación en un readme en github, crear un repositorio y compartir por este medio la información.
