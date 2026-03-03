@@ -1,9 +1,30 @@
 Desarrollodel quiz numero 1 de aplicaciones en sustemas embebidos 
 
-Donde se nos pide realizar lo 
+Donde se nos pide realizar lo siguiente: 
 
 Utilizar el código de ejemplo que expone mediaPipe denominado "Pose Landmark Detection" y desarrollar lo siguiente:
 Analizar y explicar el funcionamiento del código y las funciones más relevantes.
 Desarrollar una etiqueta sencilla dentro de la imagen que indique si la persona está parada o sentada.
 Conectar el código con arduino, para que la persona cuando se pare prenda un led rojo y cuando se siente prenda un led verde.
 Desarrollar la explicación en un readme en github, crear un repositorio y compartir por este medio la información.
+
+## Pose Landmark Detection: Control de Postura con MediaPipe y Arduino
+
+Este proyecto utiliza Visión Artificial para detectar en tiempo real si una persona está sentada o de pie, enviando señales de control a un Arduino para activar indicadores visuales (LEDs).
+
+1. Análisis del Funcionamiento
+El sistema se basa en la librería MediaPipe Pose, que utiliza una arquitectura de aprendizaje profundo para localizar 33 puntos clave (landmarks) del cuerpo humano en 3D.
+
+2. Requisitos e Instalación
+Para ejecutar el código de Python, instala las dependencias mediante PyPI:
+bash
+pip install mediapipe opencv-python pyserial
+Usa el código con precaución.
+
+3. Conexión con Arduino
+El script de Python se comunica vía Protocolo Serial.
+LED Rojo: Conectado al Pin 8 (Indica estado "Parado").
+LED Verde: Conectado al Pin 9 (Indica estado "Sentado").
+
+Código del Arduino (.ino)
+El código espera recibir el caracter 'R' para encender el rojo o 'G' para el verde a través del puerto Serial.read().
