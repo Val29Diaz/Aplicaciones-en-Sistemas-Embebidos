@@ -699,8 +699,14 @@ El sistema mostrará en tiempo real:
 
 **Demostración visual**
 
+Comando inicial:
+
 <img width="1918" height="1132" alt="image" src="https://github.com/user-attachments/assets/3050f578-99fe-4604-8a27-07edb14f5ddd" />
 
+Comando mejorado
+
+
+<img width="799" height="635" alt="image" src="https://github.com/user-attachments/assets/da1cca24-b174-4c54-b197-83ec012f8f41" />
 
 ---
 
