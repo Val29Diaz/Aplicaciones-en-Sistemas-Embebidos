@@ -77,26 +77,265 @@ Es un microcontrolador de la familia de PIC fabricado por Microchip y esta basad
 
 ---
 
-## 2. Preguntas Practicas
+# 2. Preguntas Practicas
 
 
+---
 
+# Parte de Diseño – Sistema Inteligente para Reconocimiento de Elementos y Monitoreo de Movimiento en un Laboratorio de Telecomunicaciones
 
+El objetivo del sistema es desarrollar una **plataforma inteligente que permita reconocer herramientas y monitorear el movimiento de las personas dentro de un laboratorio de telecomunicaciones**, utilizando técnicas de **visión por computadora, sistemas embebidos y aprendizaje automático**. El sistema permitirá identificar objetos del laboratorio y detectar si las personas se desplazan a una velocidad normal o excesiva, contribuyendo a mejorar la seguridad y el control del entorno.
 
+---
 
+## 1. Desarrollo de una base de datos con imágenes de los elementos del laboratorio
 
+Para construir un sistema de reconocimiento de objetos es necesario y se pensaria en contar con un **conjunto de datos (dataset)** que permita entrenar al modelo de clasificación.
 
+### Paso 1: Identificación de los elementos del laboratorio
 
+Primero se realizaria un inventario de los objetos más comunes del laboratorio de telecomunicaciones, como se muestra acontinuación :
 
+* Osciloscopios
+* Multímetros
+* Fuentes de poder
+* Cables de red
+* Antenas
+* Routers
+* Switches
+* Herramientas electrónicas
 
-Te voy a ayudar a escribir **la Parte Empírica completa como si fuera para tu README de GitHub o informe**, manteniendo coherencia con el trabajo anterior que hiciste con **MediaPipe + Arduino + visión artificial**.
-Además incluiré:
+Cada uno de estos elementos representará **una clase dentro del sistema de reconocimiento**.
 
-* Explicación conceptual
-* Paso a paso del desarrollo
-* Código
-* Explicación línea por línea
-* Mejoramiento del código
+### Paso 2: Captura de imágenes
+
+Se deben capturar múltiples imágenes de cada objeto utilizando una cámara o celular.
+
+Se Desarrollaria lo siguiente:
+
+* Tomar **entre 100 y 300 imágenes por objeto**
+* Variar **ángulos, iluminación y distancia**
+* Incluir diferentes posiciones del objeto
+
+Esto mejora la capacidad del modelo para reconocer los elementos en diferentes condiciones.
+
+### Paso 3: Organización del dataset
+
+Las imágenes deben organizarse en carpetas separadas por categoría.
+
+Así :
+
+```
+dataset/
+   osciloscopio/
+   multimetro/
+   router/
+   cable_red/
+   antena/
+```
+
+### Paso 4: Preprocesamiento de datos
+
+Antes se pueden aplicar técnicas de mejora del dataset como:
+
+* Redimensionamiento de imágenes
+* Normalización
+* Aumento de datos (rotación, cambio de brillo)
+
+Esto ayuda a mejorar la precisión del modelo.
+
+---
+
+# 2. Creación de un sistema clasificador de elementos usando MediaPipe
+
+Una vez construido el dataset, se procede a crear el sistema de reconocimiento utilizando **visión por computadora y aprendizaje automático**.
+
+### Paso 1: Uso de MediaPipe
+
+MediaPipe es una biblioteca desarrollada por Google que permite realizar **detección de objetos, seguimiento de movimiento y reconocimiento de patrones en tiempo real**.
+
+El sistema utilizará:
+
+* **MediaPipe + Python**
+* Cámara web para capturar imágenes en tiempo real
+
+### Paso 2: Captura de imagen en tiempo real
+
+El sistema imlementará **OpenCV** para capturar video desde la cámara del computador.
+
+Ejemplo conceptual:
+
+```python
+import cv2
+
+camara = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = camara.read()
+    cv2.imshow("Camara", frame)
+
+    if cv2.waitKey(1) == 27:
+        break
+```
+
+Esto permite obtener los frames que posteriormente serán analizados.
+
+### Paso 3: Clasificación de objetos
+
+Las imágenes capturadas se comparan con el modelo entrenado para identificar el objeto presente en el laboratorio.
+
+El sistema realizará:
+
+1. Captura de imagen
+2. Procesamiento de la imagen
+3. Extracción de características
+4. Clasificación del objeto
+
+Cuando el sistema reconoce un objeto, puede mostrar el nombre del elemento detectado.
+
+Ejemplo:
+
+```
+Objeto detectado: Multímetro
+Confianza: 92%
+```
+
+---
+
+# 3. Reconocimiento de la velocidad de las personas en el laboratorio
+
+Para detectar si una persona se mueve demasiado rápido dentro del laboratorio se utilizará **detección y seguimiento de movimiento**.
+
+### Paso 1: Detección de personas
+
+Se puede usar:
+
+* OpenCV
+* MediaPipe Pose
+* MediaPipe Object Detection
+
+Esto permite identificar la posición de una persona dentro de la imagen.
+
+### Paso 2: Seguimiento de movimiento
+
+El sistema analiza la posición de la persona en diferentes frames del video.
+
+Ejemplo:
+
+```
+Frame 1 → posición (x1, y1)
+Frame 2 → posición (x2, y2)
+```
+
+La distancia recorrida se calcula con la fórmula:
+
+[
+distancia = \sqrt{(x2-x1)^2 + (y2-y1)^2}
+]
+
+### Paso 3: Cálculo de velocidad
+
+La velocidad se calcula como:
+
+[
+velocidad = \frac{distancia}{tiempo}
+]
+
+Si la velocidad supera un umbral definido, el sistema genera una alerta.
+
+Ejemplo:
+
+```
+Velocidad normal → caminando
+Velocidad alta → movimiento peligroso
+```
+
+### Paso 4: Activación de alertas
+
+Cuando se detecta un movimiento demasiado rápido se pueden activar acciones como:
+
+* Encender un LED con Arduino
+* Enviar una alerta en pantalla
+* Registrar el evento en la base de datos
+
+---
+
+# 4. Despliegue del sistema en una plataforma web o móvil
+
+Para que el sistema sea accesible se puede implementar una plataforma web o aplicación móvil.
+
+### Paso 1: Backend del sistema
+
+El procesamiento principal puede ejecutarse en **Python**, utilizando frameworks como:
+
+* Flask
+* FastAPI
+* Django
+
+Este servidor se encargará de:
+
+* Procesar las imágenes
+* Ejecutar el modelo de reconocimiento
+* Enviar resultados al usuario
+
+### Paso 2: Base de datos
+
+Se puede utilizar una base de datos para almacenar:
+
+* Objetos detectados
+* Registro de movimiento
+* Alertas generadas
+
+Opciones:
+
+* MySQL (Este es con el que me encuentro mas familiarizada) pero se podría evaluar cual es la mejor opción
+* PostgreSQL
+* MongoDB
+
+---
+
+### Paso 3: Interfaz web
+
+Se desarrollaria una interfaz que muestre:
+
+* Video en tiempo real
+* Objetos detectados
+* Velocidad de las personas
+* Alertas del sistema
+
+Tecnologías recomendadas:
+
+* HTML
+* CSS
+* JavaScript
+* React (opcional)
+
+---
+
+### Paso 4: Aplicación móvil
+
+También podría desarrollar una aplicación móvil utilizando:
+
+* Flutter
+* React Native
+
+La aplicación permitiría:
+
+* Ver el laboratorio en tiempo real
+* Recibir notificaciones
+* Consultar reportes
+
+---
+
+# Conclusión
+
+El desarrollo de esta plataforma permite integrar tecnologías de **visión por computadora, sistemas embebidos y aprendizaje automático** para crear un laboratorio inteligente. El sistema puede reconocer herramientas del laboratorio y monitorear el movimiento de las personas, contribuyendo a mejorar la seguridad, el control de inventario y la automatización del entorno.
+
+Además, el uso de tecnologías como **MediaPipe, OpenCV, Python y microcontroladores como Arduino o PIC** permite construir una solución escalable que puede implementarse en plataformas web o móviles.
+
+---
+
+# 3. Practica
 
 ---
 
@@ -406,7 +645,7 @@ Permite salir presionando la tecla **q**.
 
 El código puede mejorarse agregando:
 
-### 1️⃣ Conexión entre puntos del pulgar
+### Conexión entre puntos del pulgar
 
 ```python
 thumb_connections = [(1,2),(2,3),(3,4)]
@@ -426,7 +665,7 @@ Esto dibuja la estructura del pulgar.
 
 ---
 
-### 2️⃣ Mostrar etiqueta en pantalla
+### Mostrar etiqueta en pantalla
 
 ```python
 cv2.putText(frame,"Pulgar Detectado",(20,50),
@@ -437,7 +676,7 @@ Esto indica visualmente que el pulgar fue detectado.
 
 ---
 
-### 3️⃣ Integración con Arduino
+### Integración con Arduino
 
 Se puede enviar un comando serial cuando el pulgar esté levantado:
 
@@ -458,16 +697,11 @@ El sistema mostrará en tiempo real:
 * Conexión entre los puntos del pulgar
 * Identificación del pulgar detectado
 
+**Demostración visual**
+
+<img width="1918" height="1132" alt="image" src="https://github.com/user-attachments/assets/3050f578-99fe-4604-8a27-07edb14f5ddd" />
+
+
 ---
 
-# 8. Conclusión
 
-El desarrollo de este algoritmo demuestra cómo utilizar **MediaPipe y OpenCV para detectar partes específicas del cuerpo humano en tiempo real**. La detección del pulgar es un primer paso para implementar sistemas más avanzados de interacción gestual, los cuales pueden integrarse con **microcontroladores como Arduino o PIC** para controlar dispositivos físicos dentro de sistemas embebidos.
-
----
-
-✅ Si quieres, también puedo darte **una versión mucho más avanzada del código (tipo proyecto universitario nivel alto)** que:
-
-* detecta si el pulgar está **arriba o abajo 👍👎**
-* controla **Arduino con gestos**
-* y se ve **mucho más impresionante para el profesor**.
