@@ -92,8 +92,139 @@ flowchart TD
 
 ## Código
 
+El microcontrolador lee ese valor y lo guarda en la variable:
+
+```
+valor = PORTB
+```
+Un **botón conectado al pin RA3** cambia el modo de visualización:
+
+| Modo | Sistema numérico |
+| ---- | ---------------- |
+| 0    | Decimal          |
+| 1    | Octal            |
+| 2    | Hexadecimal      |
+
+El número se convierte al sistema seleccionado.
+
+Los **3 displays se controlan con multiplexación** para reducir pines.
+
 ```c
-// Código completo aquí (igual al que ya tienes)
+#include <xc.h>
+
+#pragma config FOSC = XT
+#pragma config WDTE = OFF
+#pragma config LVP = OFF
+
+#define _XTAL_FREQ 4000000
+
+const unsigned char table[]={
+0x3F,0x06,0x5B,0x4F,
+0x66,0x6D,0x7D,0x07,
+0x7F,0x6F,0x77,0x7C,
+0x39,0x5E,0x79,0x71
+};
+
+unsigned char modo=0;
+unsigned char d1,d2,d3;
+
+void leer_boton()
+{
+    if(PORTAbits.RA3==1)
+    {
+        __delay_ms(40);
+
+        if(PORTAbits.RA3==1)
+        {
+            modo++;
+
+            if(modo>2)
+                modo=0;
+
+            while(PORTAbits.RA3==1);
+        }
+    }
+}
+
+void convertir(unsigned char valor)
+{
+    switch(modo)
+    {
+
+        case 0:
+
+        d3 = valor/100;
+        d2 = (valor%100)/10;
+        d1 = valor%10;
+
+        break;
+
+        case 1:
+
+        d3 = (valor/64)%8;
+        d2 = (valor/8)%8;
+        d1 = valor%8;
+
+        break;
+
+        case 2:
+
+        d3 = 16;
+        d2 = valor/16;
+        d1 = valor%16;
+
+        break;
+    }
+}
+
+void multiplexar()
+{
+
+    PORTD = ~table[d1];
+    PORTAbits.RA0 = 1;
+    __delay_ms(3);
+    PORTAbits.RA0 = 0;
+
+    PORTD = ~table[d2];
+    PORTAbits.RA1 = 1;
+    __delay_ms(3);
+    PORTAbits.RA1 = 0;
+
+    if(d3 < 16)
+    {
+        PORTD = ~table[d3];
+        PORTAbits.RA2 = 1;
+        __delay_ms(3);
+        PORTAbits.RA2 = 0;
+    }
+    else
+    {
+        __delay_ms(3);
+    }
+}
+
+void main()
+{
+
+    ADCON1 = 0x06;
+
+    TRISB = 0xFF;
+    TRISD = 0x00;
+    TRISA = 0x08;
+
+    PORTD = 0xFF;
+
+    unsigned char valor;
+
+    while(1)
+    {
+        leer_boton();
+        valor = PORTB;
+        convertir(valor);
+        multiplexar();
+    }
+}
+
 ```
 
 ---
@@ -108,11 +239,8 @@ flowchart TD
 
 ### Circuito en simulación
 
-(Insertar imagen)
 
-```
-/imagenes/punto1_simulacion.png
-```
+<img width="1491" height="878" alt="image" src="https://github.com/user-attachments/assets/7eb818ff-acdc-431a-8a3f-5fd4b1d7d9ad" />
 
 ---
 
@@ -120,9 +248,6 @@ flowchart TD
 
 (Insertar imagen)
 
-```
-/imagenes/punto1_funcionamiento_fisico.jpg
-```
 
 ---
 
