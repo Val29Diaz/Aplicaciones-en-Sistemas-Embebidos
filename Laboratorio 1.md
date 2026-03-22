@@ -102,13 +102,7 @@ flowchart TD
 
 ### Montaje del circuito físico
 
-(Insertar imagen)
-
-Ruta sugerida:
-
-```
-/imagenes/punto1_montaje_fisico.jpg
-```
+<img width="900" height="1600" alt="image" src="https://github.com/user-attachments/assets/adaeb6ea-2c81-424b-9834-9c31d3f1bbe9" />
 
 ---
 
