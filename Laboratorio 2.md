@@ -90,23 +90,19 @@ void __interrupt() isr(void) {
 
 ### Esquema en SimulIDE
 
-*(Aquí puedes subir la imagen donde el transistor ya está conectado a 5V y el parlante suena)*
 
-\<img width="800" alt="Esquema Piano" src="[https://tu-enlace-a-la-imagen-aqui.png](https://www.google.com/search?q=https://tu-enlace-a-la-imagen-aqui.png)" /\>
+<img width="1203" height="872" alt="image" src="https://github.com/user-attachments/assets/e8cde2e6-3eb9-4eb5-8dfc-d4c00580a88e" />
 
 -----
 
 ### Programación Física (PICkit 3)
 
-*(Aquí va la captura que me pasaste del software de Microchip)*
-
-\<img width="600" alt="Programación PICkit3" src="[https://tu-enlace-a-la-imagen-aqui.png](https://www.google.com/search?q=https://tu-enlace-a-la-imagen-aqui.png)" /\>
+<img width="384" height="512" alt="image" src="https://github.com/user-attachments/assets/6a852328-d136-4e5a-a48d-76edcf2d179b" />
 
 -----
 
 ### Funcionamiento en Video / GIF
 
-*(Aquí puedes subir un pequeño clip de cómo suena al presionar las teclas)*
 
 ```
 /gifs/funcionamiento_piano.gif
@@ -143,4 +139,3 @@ void __interrupt() isr(void) {
 
 -----
 
-¡Listo\! Solo tienes que copiar esto en el archivo `README.md` de tu nuevo repositorio y subir las imágenes correspondientes. ¡Te quedó un proyecto de laboratorio muy completo\!
