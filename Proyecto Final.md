@@ -219,10 +219,27 @@ void setup() {
 }
 (El código completo se encuentra en sala_v2.ino.)
 ```
-## Evidencias 
-<img width="1280" height="575" alt="image" src="https://github.com/user-attachments/assets/5f3527e4-91ed-44e1-ae09-af51e1983323" />
-<img width="575" height="1280" alt="image" src="https://github.com/user-attachments/assets/ce5f382f-54f2-4721-8d13-515dc68d7aa3" />
-<img width="575" height="1280" alt="image" src="https://github.com/user-attachments/assets/518382b8-672d-4356-970e-6294ae332621" />
+## Evidencias
+
+### VIDEOS
+
+
+
+https://github.com/user-attachments/assets/b47ab5a7-2c07-4eac-b948-21b3e03f9536
+
+
+
+https://github.com/user-attachments/assets/912520be-9ec2-4895-988c-a2b446e0fc66
+
+
+
+https://github.com/user-attachments/assets/17caf839-bdde-4aa8-aec7-b750fc42fcc3
+
+
+
+https://github.com/user-attachments/assets/2c70e148-64b4-4ee5-bf4c-176f6a161ae3
+
+
 
 ## Chatbot inteligente 
 El micrófono INMP441 captura audio de alta calidad. Para implementar un asistente real se sigue esta arquitectura:
