@@ -21,7 +21,8 @@ Prototipo funcional de una sala domótica a escala que combina **iluminación au
 - [Pruebas y calibración](#pruebas-y-calibración)
 - Para ver baño y habitacion click aqui:
   https://github.com/paulaabaez/APLICACIONES-EN-SISTEMAS-EMBEBIDOS/blob/a6e5e6d7c4c00edaf459c1c96343c064074c546b/corte%203%3Aba%C3%B1o%20y%20habitaci%C3%B3n.md
-  
+- Para ver cocina y garaje click en el siguiente link :
+  https://github.com/dayanramc/CASA-.git
 ---
 
 ## Materiales
