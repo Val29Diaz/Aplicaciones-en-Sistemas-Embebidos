@@ -311,3 +311,179 @@ Juegos: mueve el joystick. Si los controles están invertidos, intercambia VRx y
 Micrófono: abre el monitor serie (115200 baud), habla o aplaude. El valor de energía debe subir. Ajusta el umbral energy > 5000 según tu entorno.
 
 Web: conéctate a la IP de la ESP32 para ver el dashboard.
+
+## Informe Técnico y Teoría Complementaria
+### 1. Fundamentos del proyecto
+El objetivo es construir una maqueta funcional de una sala inteligente que integre múltiples sistemas domóticos en un solo microcontrolador, demostrando capacidad de procesamiento multitarea, interacción sensorial, actuadores y conectividad.
+
+### 1.1 ¿Por qué ESP32?
+Doble núcleo Xtensa LX6 a 240 MHz.
+
+WiFi y Bluetooth integrados.
+
+Periféricos I2S, I2C, ADC, UART, PWM.
+
+Soporte para FreeRTOS.
+
+Comunidad y librerías maduras.
+
+### 1.2 FreeRTOS y multitarea
+Se crean tareas independientes con prioridades y asignación de núcleo. Esto evita bloqueos entre la lectura de sensores, la actualización del NeoPixel, el bucle de juegos y la captura de audio.
+
+Tarea	Stack	Prioridad	Núcleo
+Iluminación	2048	1	1
+NeoPixel	4096	1	1
+Juegos	8192	2	0
+Micrófono	4096	1	1
+
+### 2. Descripción técnica de cada módulo
+
+### 2.1 Iluminación automática (LDR + LED)
+Principio: divisor de tensión resistivo.
+Vout = Vcc * Rfija / (Rldr + Rfija)
+
+Con luz: Rldr baja → Vout baja → ADC < umbral → LED apagado.
+
+En oscuridad: Rldr alta → Vout alta → LED encendido.
+
+Umbral ajustable según condiciones ambientales.
+
+### 2.2 Cuadro de arte NeoPixel
+Protocolo WS2812: datos serializados a 800 kHz. Cada LED recibe 24 bits (GRB).
+
+Se usa HSV para transiciones suaves.
+
+ring.ColorHSV(hue, sat, val) → animación arcoíris continua.
+
+Recomendaciones de hardware:
+
+Condensador de 1000 µF en la alimentación.
+
+Resistencia de 330 Ω en la línea de datos para evitar picos de corriente.
+
+### 2.3 Consola de juegos OLED
+Pantalla SSD1306 controlada por I2C (dirección 0x3C).
+
+Buffer de 128×64 pixels.
+
+Juegos: Snake y Pong.
+
+Joystick analógico con zona muerta para evitar rebotes.
+
+### 2.4 Micrófono INMP441 y asistente de voz
+Protocolo I2S:
+
+SCK (bit clock) = 64 × fs × bits_canal.
+
+WS (word select) = frecuencia de muestreo.
+
+SD (datos) = flujo serie de muestras.
+
+Detección de energía:
+E = (1/N) * Σ|sample[i]|
+Umbral empírico (ej. 5000) para disparar acción.
+
+Chatbot teórico:
+
+Audio capturado → buffer circular.
+
+Wake Word (ej. "Alexa") → modelo entrenado con Edge Impulse.
+
+Datos enviados por HTTP/WebSocket a servidor Python.
+
+Servidor usa Vosk/Whisper para STT.
+
+NLP (Rasa, GPT) interpreta intención.
+
+Respuesta JSON → ESP32 ejecuta acción.
+
+### 2.5 Piano con PIC16F887
+Generación de tonos: Timer1 en modo interrupción, alternando RC2.
+Fout = Fclk / (2 * prescaler * (65536 - reload))
+
+Cristal 20 MHz, prescaler 1:8 → resolución de ~0.5 Hz.
+
+Potenciómetro como atenuador analógico externo.
+
+Comunicación UART (prevista):
+
+TX del PIC → divisor 1.8 kΩ / 3.3 kΩ → RX2 (GPIO16).
+
+Envío de un carácter por nota para sincronizar con NeoPixel.
+
+### 3. Página web de monitoreo
+Servidor HTTP en ESP32:
+
+WebServer sobre WiFi (modo STA).
+
+Ruta / : HTML dinámico con estado de pines.
+
+Ruta /toggleLED : control remoto del LED.
+
+Estructura del HTML:
+```
+<h1>Sala Inteligente</h1>
+<p>LED: %ESTADO%</p>
+<p>Juego: %JUEGO%</p>
+<p>LDR: %VALOR%</p>
+```
+Se puede expandir con WebSockets para actualización en tiempo real.
+
+### 4. Conexión a la nube y chatbot
+Opciones de implementación:
+
+MQTT: broker público (test.mosquitto.org), tópicos sala/luz, sala/juego.
+
+HTTP REST: servidor Flask en PC local.
+
+Google Assistant / Alexa: integración mediante Espressif RainMaker.
+
+Flujo completo:
+
+text
+Usuario → micrófono → ESP32 → WiFi → Servidor → STT → NLP → TTS → respuesta
+### 5. Diagramas adicionales
+Diagrama de flujo del asistente de voz:
+
+
+<img width="1089" height="3259" alt="deepseek_mermaid_20260530_e76b9f" src="https://github.com/user-attachments/assets/38570d6f-1a2e-4955-ac94-eb40e1bc4713" />
+
+
+
+
+
+
+
+
+
+
+Diagrama de bloques del sistema completo:
+
+
+<img width="5111" height="1834" alt="deepseek_mermaid_20260530_831b54" src="https://github.com/user-attachments/assets/6012fb24-b520-46b1-bdd5-0035d05302b8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 6. Referencias técnicas
+Espressif I2S Driver: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2s.html
+
+Adafruit NeoPixel Guide: https://learn.adafruit.com/adafruit-neopixel-uberguide
+
+FreeRTOS en ESP32: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html
+
+Edge Impulse Voice Recognition: https://docs.edgeimpulse.com/docs/audio
+
+Este bloque teórico complementa el README.md y puede ir al final del archivo o como un documento separado en la carpeta /docs.
