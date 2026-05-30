@@ -3,7 +3,9 @@
 Prototipo funcional de una sala domótica a escala que combina **iluminación automática**, **cuadro de arte dinámico RGB**, **consola de videojuegos retro**, **asistente de voz básico** y **comunicación con un piano externo controlado por PIC16F887**. El sistema aprovecha el potencial multitarea de la ESP32 mediante **FreeRTOS** para ejecutar todas las funciones en paralelo.
 
 ![Mini sala inteligente](https://via.placeholder.com/800x400?text=Maqueta+Sala+Inteligente)  
-*Agrega aquí una foto real de tu maqueta.*
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/ce9db543-6308-4f7a-896f-f299143dea33" />
+<img width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/f5d9b7e1-64b1-4b97-ace3-9d71f9e4e1f9" />
+
 
 ---
 
@@ -216,6 +218,11 @@ void setup() {
 }
 (El código completo se encuentra en sala_v2.ino.)
 ```
+## Evidencias 
+<img width="1280" height="575" alt="image" src="https://github.com/user-attachments/assets/5f3527e4-91ed-44e1-ae09-af51e1983323" />
+<img width="575" height="1280" alt="image" src="https://github.com/user-attachments/assets/ce5f382f-54f2-4721-8d13-515dc68d7aa3" />
+<img width="575" height="1280" alt="image" src="https://github.com/user-attachments/assets/518382b8-672d-4356-970e-6294ae332621" />
+
 ## Chatbot inteligente 
 El micrófono INMP441 captura audio de alta calidad. Para implementar un asistente real se sigue esta arquitectura:
 
@@ -248,6 +255,7 @@ Valor del sensor LDR
 Último comando de voz recibido
 
 Control remoto para encender/apagar el LED desde el navegador
+<img width="900" height="1600" alt="WhatsApp Image 2026-05-29 at 21 39 25" src="https://github.com/user-attachments/assets/90478c1e-bcf6-4369-91df-e771bab2f5d5" />
 
 ## Código del servidor web (fragmento)
 ```
