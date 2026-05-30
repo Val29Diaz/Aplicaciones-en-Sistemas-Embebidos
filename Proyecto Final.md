@@ -243,7 +243,7 @@ Se desarrolló una interfaz web sencilla que corre en la ESP32 y muestra en tiem
 
 Captura de la interfaz
 https://via.placeholder.com/600x400?text=Dashboard+Web+ESP32
-Agrega aquí tu imagen real de la página web.
+<img width="900" height="1600" alt="WhatsApp Image 2026-05-29 at 21 39 25" src="https://github.com/user-attachments/assets/90478c1e-bcf6-4369-91df-e771bab2f5d5" />
 
 ## Características de la página
 Estado del LED (encendido/apagado)
@@ -255,7 +255,7 @@ Valor del sensor LDR
 Último comando de voz recibido
 
 Control remoto para encender/apagar el LED desde el navegador
-<img width="900" height="1600" alt="WhatsApp Image 2026-05-29 at 21 39 25" src="https://github.com/user-attachments/assets/90478c1e-bcf6-4369-91df-e771bab2f5d5" />
+
 
 ## Código del servidor web (fragmento)
 ```
