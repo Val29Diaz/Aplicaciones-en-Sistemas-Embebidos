@@ -19,6 +19,7 @@ Prototipo funcional de una sala domótica a escala que combina **iluminación au
 - [Página web de monitoreo](#página-web-de-monitoreo)
 - [Piano externo PIC16F887](#piano-externo-pic16f887)
 - [Pruebas y calibración](#pruebas-y-calibración)
+- Evidencias (Videos)
 - Para ver baño y habitacion click aqui:
   https://github.com/paulaabaez/APLICACIONES-EN-SISTEMAS-EMBEBIDOS/blob/a6e5e6d7c4c00edaf459c1c96343c064074c546b/corte%203%3Aba%C3%B1o%20y%20habitaci%C3%B3n.md
 - Para ver cocina y garaje click en el siguiente link :
@@ -90,7 +91,7 @@ Transistor: emisor → GND, colector → (+) condensador 100µF → altavoz 8Ω 
 Software y librerías
 Arduino IDE 2.x con soporte para ESP32.
 
-Librerías:
+### Librerías:
 
 Adafruit NeoPixel (para el aro de LEDs)
 
@@ -329,8 +330,12 @@ Juegos: mueve el joystick. Si los controles están invertidos, intercambia VRx y
 Micrófono: abre el monitor serie (115200 baud), habla o aplaude. El valor de energía debe subir. Ajusta el umbral energy > 5000 según tu entorno.
 
 Web: conéctate a la IP de la ESP32 para ver el dashboard.
+--------
 
 ## Informe Técnico y Teoría Complementaria
+
+--------
+
 ### 1. Fundamentos del proyecto
 El objetivo es construir una maqueta funcional de una sala inteligente que integre múltiples sistemas domóticos en un solo microcontrolador, demostrando capacidad de procesamiento multitarea, interacción sensorial, actuadores y conectividad.
 
